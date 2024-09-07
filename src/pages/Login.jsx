@@ -1,41 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import user_icon from '../Assets/person.png';
-import email_icon from '../Assets/email.png';
-import password_icon from '../Assets/password.png';
+import user_icon from "../Assets/person.png";
+import email_icon from "../Assets/email.png";
+import password_icon from "../Assets/password.png";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState(''); // State for role selection
+  const url = 'http://localhost:3020/login'
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState(""); // State for role selection
+  const [errorMessage, setErrorMessage] = useState("");  // State for error message
   const navigate = useNavigate(); // Use useNavigate to navigate to different pages
 
   // Handle login form submission
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload
-
-    // Perform basic validation (you can replace this with API authentication)
-    if (email === '' || password === '' || role === '') {
-      alert('Please fill in all the fields');
-      return;
-    }
-
-    // Simulate a successful login process and redirect based on role
-    switch (role) {
-      case 'Admin':
-        navigate('/admin-dashboard');
-        break;
-      case 'Manager':
-        navigate('/manager-dashboard');
-        break;
-      case 'Member':
-        navigate('/member-dashboard');
-        break;
-      default:
-        alert('Invalid role selected');
-    }
+  
+    const data = { email, password, role };
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    .then((result) => {
+      console.log("Response status:", result.status);  // Log status code for better debugging
+      
+      if (result.ok) {
+        console.log("Successful login. Parsing JSON...");
+        return result.json();  // Proceed if status code is 2xx and server returns JSON
+      } else if (result.status === 401) {
+        throw new Error("Wrong password. Please try again.");
+      } else if (result.status === 400) {
+        throw new Error("Bad request. Please check your input.");
+      } else if (result.status === 500) {
+        throw new Error("Internal server error. Please try again later.");
+      } else {
+        throw new Error(`Error while logging in. Status code: ${result.status}`);
+      }
+    })
+    
+      .then((data) => {
+        // Now, redirect based on role returned by the server (use data.role if returned by server)
+        console.log("data received :" , data);
+        const serverRole = role; // Use returned role or form role
+        console.log("Server role:", serverRole);
+        
+        switch (serverRole) {
+          case "Admin":
+            navigate("/admin-dashboard");
+            break;
+          case "Manager":
+            navigate("/manager-dashboard");
+            break;
+          case "Member":
+            navigate("/member-dashboard");
+            break;
+          default:
+            alert("Invalid role selected");
+        }
+      })
+      .catch((err) => {
+        // Handle error cases, like wrong password
+        console.log('flow in the');
+        setErrorMessage(err.message);
+        setEmail(""); // Clear the email field
+        setPassword(""); // Clear the password field
+      });
   };
+  
+  
 
   return (
     <div className="container mx-auto p-8 max-w-md bg-white shadow-lg rounded-lg">
@@ -56,18 +90,24 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)} // Update email state
             className="w-full outline-none"
             placeholder="Email"
+            required
           />
         </div>
 
         {/* Password */}
         <div className="input flex items-center border border-gray-300 rounded-lg p-2">
-          <img src={password_icon} alt="password icon" className="w-6 h-6 mr-2" />
+          <img
+            src={password_icon}
+            alt="password icon"
+            className="w-6 h-6 mr-2"
+          />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)} // Update password state
             className="w-full outline-none"
             placeholder="Password"
+            required
           />
         </div>
 
@@ -78,8 +118,11 @@ const Login = () => {
             className="w-full outline-none bg-transparent"
             value={role}
             onChange={(e) => setRole(e.target.value)} // Update role state
+            required
           >
-            <option value="" disabled>Select Role</option>
+            <option value="" disabled>
+              Select Role
+            </option>
             <option value="Admin">Admin</option>
             <option value="Manager">Manager</option>
             <option value="Member">Member</option>
@@ -88,7 +131,8 @@ const Login = () => {
 
         {/* Forgot Password */}
         <div className="forgot-password text-sm text-blue-500 mt-4 text-center">
-          Lost Password? <span className="underline cursor-pointer">Click Here!</span>
+          Lost Password?{" "}
+          <span className="underline cursor-pointer">Click Here!</span>
         </div>
 
         {/* Login Button */}
