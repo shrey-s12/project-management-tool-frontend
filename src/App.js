@@ -10,6 +10,7 @@ import CompletedTasks from './pages/CompletedTasks';
 import InProgressTasks from './pages/InProgressTasks';
 import Todos from './pages/Todos';
 import Trash from './pages/Trash';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/admin-dashboard/in-progress-tasks" element={<InProgressTasks />} />
           <Route path="/admin-dashboard/todos" element={<Todos />} />
           <Route path="/admin-dashboard/trash" element={<Trash />} />
+          <Route path="/admin-dashboard/user-profile" element={<UserProfile />} />
         </Routes>
       </Router>
     </DarkModeProvider>

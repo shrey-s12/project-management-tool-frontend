@@ -1,4 +1,3 @@
-// Sidebar.js
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { DarkModeContext } from '../context/DarkModeContext'; // Import dark mode context
@@ -13,14 +12,16 @@ const Sidebar = () => {
       
       {/* Profile Section */}
       <div className="p-6">
-        <div className="text-center mb-4 py-4 text-xl font-bold bg-blue-600">Admin Panel</div>
-        <div className="flex items-center space-x-4">
+        <div className={`text-center mb-4 py-4 text-xl font-bold ${darkMode ? 'bg-gray-700' : 'bg-blue-600'}`}>
+          Admin Panel
+        </div>
+        <Link to="/admin-dashboard/user-profile" className="flex items-center space-x-4">
           <img src={profilePic} alt="Profile" className="w-12 h-12 rounded-full" />
           <div>
             <h2 className="text-lg font-bold">Admin Name</h2>
             <p className="text-sm text-gray-300">admin@domain.com</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Navigation Links */}
@@ -34,13 +35,17 @@ const Sidebar = () => {
       </div>
 
       {/* Dark Mode Toggle */}
-      <div className="p-4">
-        <button
-          className={`w-full py-2 px-4 rounded-lg focus:outline-none ${darkMode ? 'bg-yellow-500 text-gray-900' : 'bg-gray-700 text-white'}`}
-          onClick={toggleDarkMode}
-        >
-          {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        </button>
+      <div className="p-4 flex items-center justify-between">
+        <span>{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            checked={darkMode}
+            onChange={toggleDarkMode}
+            className="sr-only peer"
+          />
+          <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+        </label>
       </div>
     </div>
   );
