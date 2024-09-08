@@ -9,7 +9,7 @@ const Sidebar = () => {
 
   return (
     <div className={`w-64 ${darkMode ? 'bg-gray-800' : 'bg-blue-500'} text-white flex flex-col justify-between`}>
-      
+
       {/* Profile Section */}
       <div className="p-6">
         <div className={`text-center mb-4 py-4 text-xl font-bold ${darkMode ? 'bg-gray-700' : 'bg-blue-600'}`}>
