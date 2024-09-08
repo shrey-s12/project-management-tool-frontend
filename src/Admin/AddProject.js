@@ -9,7 +9,9 @@ const AddProject = ({ user }) => {  // Pass user information as prop
     const [deadline, setDeadline] = useState('');
     const [manager, setManager] = useState('');
     const [managers, setManagers] = useState([]);
+    const [assignedManagers, setAssignedManagers] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [noManagersError, setNoManagersError] = useState('');
     const location = useLocation();
 
     useEffect(() => {
@@ -20,30 +22,56 @@ const AddProject = ({ user }) => {  // Pass user information as prop
 
     // Fetch managers on component mount
     useEffect(() => {
-        const url = 'http://localhost:3020/members-and-managers';
-        fetch(url)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Failed to fetch Users');
+        const fetchManagers = async () => {
+            try {
+                // Fetch all managers
+                const response = await fetch('http://localhost:3020/members-and-managers');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch managers');
                 }
-            })
-            .then((data) => {
-                // Check if data.members and data.managers are arrays
-                if (Array.isArray(data.members) && Array.isArray(data.managers)) {
-                    setManagers(data.managers);
+                const data = await response.json();
+                if (Array.isArray(data.managers)) {
+                    setManagers(data.managers); // Set managers list
                 } else {
-                    setErrorMessage('Unexpected response format');
+                    throw new Error('Unexpected response format');
                 }
-            })
-            .catch((error) => {
+
+                // Fetch assigned managers
+                const assignedResponse = await fetch('http://localhost:3020/projects/assigned-managers');
+                if (!assignedResponse.ok) {
+                    throw new Error('Failed to fetch assigned managers');
+                }
+                const assignedData = await assignedResponse.json();
+                setAssignedManagers(assignedData); // Set list of assigned managers
+            } catch (error) {
                 setErrorMessage(error.message);
-            });
+            }
+        };
+
+        fetchManagers();
     }, []);
+
+    // Filter out already assigned managers from the list
+    const availableManagers = managers.filter(
+        (mgr) => !assignedManagers.includes(mgr._id)
+    );
+
+    // Show error if no managers are available
+    useEffect(() => {
+        if (availableManagers.length === 0) {
+            setNoManagersError('No managers available. Please add more managers before creating a project.');
+        } else {
+            setNoManagersError('');
+        }
+    }, [availableManagers]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (availableManagers.length === 0) {
+            setNoManagersError('No managers available. Please add more managers before creating a project.');
+            return;
+        }
+
         const data = {
             name: title,
             description,
@@ -87,6 +115,7 @@ const AddProject = ({ user }) => {  // Pass user information as prop
                     <h1 className="text-2xl font-bold mb-6">Add Project</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+                        {noManagersError && <div className="text-red-500">{noManagersError}</div>}
                         <input
                             type="text"
                             value={title}
@@ -114,15 +143,17 @@ const AddProject = ({ user }) => {  // Pass user information as prop
                             onChange={(e) => setManager(e.target.value)}
                             className="w-full p-3 border rounded-lg"
                             required
+                            disabled={availableManagers.length === 0} // Disable if no managers are available
                         >
                             <option value="">Select Manager</option>
-                            {managers.map((mgr) => (
+                            {availableManagers.map((mgr) => (
                                 <option key={mgr._id} value={mgr._id}>{mgr.name}</option>
                             ))}
                         </select>
                         <button
                             type="submit"
                             className="bg-blue-500 text-white py-2 px-4 rounded-lg"
+                            disabled={availableManagers.length === 0} // Disable submit button if no managers
                         >
                             Add Project
                         </button>

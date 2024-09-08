@@ -20,7 +20,7 @@ const AddTask = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = { title, description, deadline, priority, assignedMember };
-        
+
         api.post('/tasks', data)
             .then(response => {
                 console.log('Task added:', response.data);
