@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useLocation } from 'react-router-dom';
 
-const AddProject = () => {
+const AddProject = ({ user }) => {  // Pass user information as prop
     const url = 'http://localhost:3020/projects/addProject';
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -21,7 +21,7 @@ const AddProject = () => {
 
     // Fetch managers on component mount
     useEffect(() => {
-        fetch('http://localhost:3020/managers') // URL to fetch managers
+        fetch('http://localhost:3020/managers')
             .then((response) => response.json())
             .then((data) => setManagers(data))
             .catch((error) => setErrorMessage('Error fetching managers'));
@@ -29,7 +29,13 @@ const AddProject = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = { title, description, deadline, manager };
+        const data = {
+            title,
+            description,
+            deadline,
+            manager,
+            createdBy: user.username // Pass the username or userId here
+        };
 
         fetch(url, {
             method: 'POST',
@@ -46,9 +52,7 @@ const AddProject = () => {
                 }
             })
             .then(() => {
-                // Handle successful response
                 console.log('Project added successfully');
-                // Optionally, you can reset the form fields here
                 setTitle('');
                 setDescription('');
                 setDeadline('');
@@ -65,12 +69,9 @@ const AddProject = () => {
             <div className="flex-1">
                 <Navbar userRole="admin" />
                 <div className="p-6">
-
                     <h1 className="text-2xl font-bold mb-6">Add Project</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
-
                         {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-
                         <input
                             type="text"
                             value={title}
@@ -79,7 +80,6 @@ const AddProject = () => {
                             placeholder="Project Title"
                             required
                         />
-
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -88,14 +88,12 @@ const AddProject = () => {
                             rows="4"
                             required
                         />
-
                         <input
                             type="date"
                             className="border p-2 rounded"
                             value={deadline}
                             onChange={(e) => setDeadline(e.target.value)}
                         />
-
                         <select
                             value={manager}
                             onChange={(e) => setManager(e.target.value)}
@@ -107,14 +105,12 @@ const AddProject = () => {
                                 <option key={mgr._id} value={mgr._id}>{mgr.name}</option>
                             ))}
                         </select>
-
                         <button
                             type="submit"
                             className="bg-blue-500 text-white py-2 px-4 rounded-lg"
                         >
                             Add Project
                         </button>
-
                     </form>
                 </div>
             </div>
