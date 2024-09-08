@@ -2,7 +2,7 @@ import React from 'react';
 
 const Navbar = ({ userRole }) => {
     return (
-        <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
+        <nav className="sticky top-0 bg-gray-800 text-white p-4 flex justify-between items-center">
             <div className="text-lg font-bold">Task Management</div>
             <div>
                 <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg">Notifications</button>

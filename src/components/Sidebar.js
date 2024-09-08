@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = ({ userRole }) => {
     return (
-        <div className="w-64 h-screen bg-gray-800 text-white p-4">
+        <div className="sticky top-0 left-0 w-64 h-screen bg-gray-800 text-white p-4">
             <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
             <ul>
                 {userRole === 'admin' && (

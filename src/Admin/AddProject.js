@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar';
 import { useLocation } from 'react-router-dom';
 
 const AddProject = ({ user }) => {  // Pass user information as prop
-    const url = 'http://localhost:3020/projects/addProject';
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -21,22 +20,38 @@ const AddProject = ({ user }) => {  // Pass user information as prop
 
     // Fetch managers on component mount
     useEffect(() => {
-        fetch('http://localhost:3020/managers')
-            .then((response) => response.json())
-            .then((data) => setManagers(data))
-            .catch((error) => setErrorMessage('Error fetching managers'));
+        const url = 'http://localhost:3020/members-and-managers';
+        fetch(url)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch Users');
+                }
+            })
+            .then((data) => {
+                // Check if data.members and data.managers are arrays
+                if (Array.isArray(data.members) && Array.isArray(data.managers)) {
+                    setManagers(data.managers);
+                } else {
+                    setErrorMessage('Unexpected response format');
+                }
+            })
+            .catch((error) => {
+                setErrorMessage(error.message);
+            });
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            title,
+            name: title,
             description,
             deadline,
-            manager,
-            createdBy: user.username // Pass the username or userId here
+            manager
         };
 
+        const url = 'http://localhost:3020/projects/addProject';
         fetch(url, {
             method: 'POST',
             headers: {
