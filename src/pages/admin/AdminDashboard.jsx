@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { DarkModeContext } from '../context/DarkModeContext'; // Import dark mode context
-import Sidebar from '../components/Sidebar'; // Import Sidebar component
+import { DarkModeContext } from '../../context/DarkModeContext'; // Import dark mode context
+import Sidebar from '../../components/Sidebar'; // Import Sidebar component
 
 const AdminDashboard = () => {
   const { darkMode } = useContext(DarkModeContext); // Access dark mode state

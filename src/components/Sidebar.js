@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { DarkModeContext } from '../context/DarkModeContext'; // Import dark mode context
-
 import profilePic from '../Assets/profile.jpg'; // Sample profile picture
 
 const Sidebar = () => {
-  const { darkMode, toggleDarkMode } = useContext(DarkModeContext); // Access dark mode state and toggle
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext); // Access dark mode state and toggle function
 
   return (
     <div className={`w-64 ${darkMode ? 'bg-gray-800' : 'bg-blue-500'} text-white flex flex-col justify-between`}>
-
+      
       {/* Profile Section */}
       <div className="p-6">
         <div className={`text-center mb-4 py-4 text-xl font-bold ${darkMode ? 'bg-gray-700' : 'bg-blue-600'}`}>
@@ -27,18 +26,15 @@ const Sidebar = () => {
       {/* Navigation Links */}
       <div className="flex flex-col p-4 space-y-4 flex-grow">
         <Link to="/admin-dashboard" className="text-lg hover:bg-blue-400 p-2 rounded">Dashboard</Link>
-        <Link to="/admin-dashboard/tasks" className="text-lg hover:bg-blue-400 p-2 rounded">Tasks</Link>
-        <Link to="/admin-dashboard/completed-tasks" className="text-lg hover:bg-blue-400 p-2 rounded">Completed Tasks</Link>
-        <Link to="/admin-dashboard/in-progress-tasks" className="text-lg hover:bg-blue-400 p-2 rounded">In Progress Tasks</Link>
-        <Link to="/admin-dashboard/todos" className="text-lg hover:bg-blue-400 p-2 rounded">Todos</Link>
-        <Link to="/admin-dashboard/trash" className="text-lg hover:bg-blue-400 p-2 rounded">Trash</Link>
+        <Link to="/admin-dashboard/projects" className="text-lg hover:bg-blue-400 p-2 rounded">Projects</Link>
+        <Link to="/admin-dashboard/addProjects" className="text-lg hover:bg-blue-400 p-2 rounded">Add Project</Link>
+        <Link to="/admin-dashboard/signup" className="text-lg hover:bg-blue-400 p-2 rounded">Add User</Link>
       </div>
 
       {/* Dark Mode Toggle */}
       <div className="p-4 flex items-center justify-between">
         <span>{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
         <div className="relative">
-          {/* Toggle Switch */}
           <input
             type="checkbox"
             id="darkModeToggle"
