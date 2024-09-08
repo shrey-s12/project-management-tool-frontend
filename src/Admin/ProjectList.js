@@ -1,0 +1,48 @@
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
+import ProjectCard from '../components/ProjectCard';
+
+const ProjectList = () => {
+    const url = 'http://localhost:3020/projects/getAllProjects';
+    const [projects, setProjects] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    // Fetch projects when the component mounts
+    useEffect(() => {
+        fetch(url)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json(); // Parse the JSON if the response is successful
+                } else {
+                    throw new Error('Failed to fetch projects');
+                }
+            })
+            .then((data) => {
+                setProjects(data); // Set the projects state with the fetched data
+            })
+            .catch((error) => {
+                setErrorMessage(error.message); // Handle any errors
+            });
+    }, []);
+
+    return (
+        <div className="flex">
+            <Sidebar userRole="admin" />
+            <div className="flex-1">
+                <Navbar userRole="admin" />
+                <div className="p-6">
+                    <h1 className="text-2xl font-bold mb-6">Project List</h1>
+                    {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {projects.map(project => (
+                            <ProjectCard key={project._id} project={project} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ProjectList;

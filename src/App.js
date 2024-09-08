@@ -1,45 +1,44 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DarkModeProvider } from './context/DarkModeContext';
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AddProjects from './pages/admin/AddProjects';
-import AllProjects from './pages/admin/AllProjects';
-import Signup from './pages/admin/Signup';
-import UserProfile from './pages/UserProfile';
-import ManagerDashboard from './pages/manager/ManagerDashboard';
-import MemberDashboard from './pages/member/MemberDashboard';
-// import Tasks from './pages/Tasks';
-// import CompletedTasks from './pages/CompletedTasks';
-// import InProgressTasks from './pages/InProgressTasks';
-// import Todos from './pages/Todos';
-// import Trash from './pages/Trash';
-// import AddTask from './pages/AddTask';
+import AdminDashboard from './Admin/Dashboard';
+import AddProject from './Admin/AddProject';
+import AddUser from './Admin/AddUser';
+import ProjectList from './Admin/ProjectList';
+import UserList from './Admin/UserList';
+import ManagerDashboard from './Manager/Dashboard';
+import AddTask from './Manager/AddTask';
+import TaskList from './Manager/TaskList';
+import TaskRequests from './Manager/TaskRequests';
+import MemberDashboard from './Member/Dashboard';
+import MemberTaskList from './Member/TaskList';
 
-function App() {
+const App = () => {
   return (
-    <DarkModeProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/admin-dashboard/addProjects" element={<AddProjects />} />
-          <Route path="/admin-dashboard/Projects" element={<AllProjects />} />
-          <Route path="/admin-dashboard/signup" element={<Signup />} />
-          <Route path="/admin-dashboard/user-profile" element={<UserProfile />} />
-          <Route path="/manager-dashboard" element={<ManagerDashboard />} />
-          <Route path="/member-dashboard" element={<MemberDashboard />} />
-          {/* <Route path="/admin-dashboard/tasks" element={<Tasks />} />
-          <Route path="/admin-dashboard/completed-tasks" element={<CompletedTasks />} />
-          <Route path="/admin-dashboard/in-progress-tasks" element={<InProgressTasks />} />
-          <Route path="/admin-dashboard/todos" element={<Todos />} />
-          <Route path="/admin-dashboard/trash" element={<Trash />} /> 
-          <Route path="/admin-dashboard/add-task" element={<AddTask />} /> */}
-        </Routes>
-      </Router>
-    </DarkModeProvider>
+    <Router>
+      <Routes>
+        {/* Login Route */}
+        <Route path="/" element={<Login />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/add-project" element={<AddProject />} />
+        <Route path="/admin/add-user" element={<AddUser />} />
+        <Route path="/admin/project-list" element={<ProjectList />} />
+        <Route path="/admin/user-list" element={<UserList />} />
+
+        {/* Manager Routes */}
+        <Route path="/manager/dashboard" element={<ManagerDashboard />} />
+        <Route path="/manager/add-task" element={<AddTask />} />
+        <Route path="/manager/task-list" element={<TaskList />} />
+        <Route path="/manager/task-requests" element={<TaskRequests />} />
+
+        {/* Member Routes */}
+        <Route path="/member/dashboard" element={<MemberDashboard />} />
+        <Route path="/member/task-list" element={<MemberTaskList />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

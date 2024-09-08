@@ -47,13 +47,13 @@ const Login = () => {
 
         switch (serverRole) {
           case "Admin":
-            navigate("/admin-dashboard");
+            navigate("/admin/dashboard");
             break;
           case "Manager":
-            navigate("/manager-dashboard");
+            navigate("/manager/dashboard");
             break;
           case "Member":
-            navigate("/member-dashboard");
+            navigate("/member/dashboard");
             break;
           default:
             alert("Invalid role selected");
