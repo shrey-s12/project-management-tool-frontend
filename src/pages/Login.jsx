@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Lottie from 'lottie-react';
+import { loginAnimation } from './animation';
 
 import user_icon from "../Assets/person.png";
 import email_icon from "../Assets/email.png";
@@ -57,75 +59,91 @@ const Login = () => {
   };
 
   return (
-    <div className="container mx-auto p-8 max-w-md bg-white shadow-lg rounded-lg">
-      {/* Header text */}
-      <div className="header mb-6 text-center">
-        <div className="text text-2xl font-bold">Login</div>
-        <div className="underline h-1 bg-blue-500 w-16 mx-auto mt-2"></div>
-      </div>
+    // Login form
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+      <div className="flex items-center space-x-80">
+        {/* Animation */}
+        <div className="mb-8 mr-8"> {/* Added mr-8 for spacing */}
+          <Lottie
+            animationData={loginAnimation}
+            loop
+            autoplay
+            style={{ width: '350px', height: '350px' }}
+          />
+        </div>
 
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
-
-        {/* Error Message */}
-        {errorMessage && (
-          <div className="text-center text-red-500 font-medium">
-            {errorMessage}
+        {/* Login Form */}
+        <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+          {/* Header */}
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-800">Login</h1>
+            <div className="w-16 h-1 bg-blue-500 mx-auto mt-2"></div>
           </div>
-        )}
 
-        {/* Email */}
-        <div className="input flex items-center border border-gray-300 rounded-lg p-2">
-          <img src={email_icon} alt="Email" className="w-6 h-6 mr-2" />
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border-none outline-none"
-            required
-          />
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="text-red-500 font-medium text-center">
+                {errorMessage}
+              </div>
+            )}
+
+            {/* Email */}
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+              <img src={email_icon} alt="Email" className="w-6 h-6 mr-2" />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full outline-none"
+                required
+              />
+            </div>
+
+            {/* Password */}
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+              <img src={password_icon} alt="Password" className="w-6 h-6 mr-2" />
+              <input
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full outline-none"
+                required
+              />
+            </div>
+
+            {/* Role */}
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+              <img src={user_icon} alt="Role" className="w-6 h-6 mr-2" />
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full outline-none"
+                required
+              >
+                <option value="" disabled>Select role</option>
+                <option value="Admin">Admin</option>
+                <option value="Manager">Manager</option>
+                <option value="Member">Member</option>
+              </select>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200"
+            >
+              Login
+            </button>
+          </form>
         </div>
-
-        {/* Password */}
-        <div className="input flex items-center border border-gray-300 rounded-lg p-2">
-          <img src={password_icon} alt="Password" className="w-6 h-6 mr-2" />
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border-none outline-none"
-            required
-          />
-        </div>
-
-        {/* Role */}
-        <div className="input flex items-center border border-gray-300 rounded-lg p-2">
-          <img src={user_icon} alt="Role" className="w-6 h-6 mr-2" />
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full border-none outline-none"
-            required
-          >
-            <option value="" disabled>Select role</option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
-            <option value="Member">Member</option>
-          </select>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-        >
-          Login
-        </button>
-
-      </form>
+      </div>
     </div>
+
+
   );
 };
 
