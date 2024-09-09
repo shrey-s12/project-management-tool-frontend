@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
-// import api from '../api';
 
 const AddUser = () => {
     const url = 'http://localhost:3020/signup'; // Backend signup endpoint
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState(""); // State fo   r role selection
+    const [role, setRole] = useState(""); // State for role selection
     const [errorMessage, setErrorMessage] = useState("");  // State for error message
     const navigate = useNavigate();
 
@@ -34,10 +33,15 @@ const AddUser = () => {
                     throw new Error(`Error occurred. Status code: ${response.status}`);
                 }
             })
-            .then((data) => {
-                // Handle successful signup
-                console.log("Signup successful:", data);
-                navigate("/admin/add-user"); // Navigate to login page after signup
+            .then(() => {
+                // Clear the form fields
+                setName('');
+                setEmail('');
+                setPassword('');
+                setRole('');
+
+                // Redirect to the user list page
+                navigate("/admin/user-list"); // Replace with the correct route for your user list page
             })
             .catch((err) => {
                 // Handle error cases

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const AddProject = ({ user }) => {  // Pass user information as prop
+const AddProject = ({ user }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -13,6 +13,7 @@ const AddProject = ({ user }) => {  // Pass user information as prop
     const [errorMessage, setErrorMessage] = useState('');
     const [noManagersError, setNoManagersError] = useState('');
     const location = useLocation();
+    const navigate = useNavigate(); // Initialize navigate
 
     useEffect(() => {
         if (location.state && location.state.deadline) {
@@ -24,7 +25,6 @@ const AddProject = ({ user }) => {  // Pass user information as prop
     useEffect(() => {
         const fetchManagers = async () => {
             try {
-                // Fetch all managers
                 const response = await fetch('http://localhost:3020/members-and-managers');
                 if (!response.ok) {
                     throw new Error('Failed to fetch managers');
@@ -36,7 +36,6 @@ const AddProject = ({ user }) => {  // Pass user information as prop
                     throw new Error('Unexpected response format');
                 }
 
-                // Fetch assigned managers
                 const assignedResponse = await fetch('http://localhost:3020/projects/assigned-managers');
                 if (!assignedResponse.ok) {
                     throw new Error('Failed to fetch assigned managers');
@@ -96,10 +95,13 @@ const AddProject = ({ user }) => {  // Pass user information as prop
             })
             .then(() => {
                 console.log('Project added successfully');
+                // Clear form fields
                 setTitle('');
                 setDescription('');
                 setDeadline('');
                 setManager('');
+                // Redirect to the Project List page
+                navigate('/admin/project-list'); // Redirect to the project list page
             })
             .catch((error) => {
                 setErrorMessage(error.message);

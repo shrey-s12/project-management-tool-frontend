@@ -12,6 +12,7 @@ import TaskList from './Manager/TaskList';
 import TaskRequests from './Manager/TaskRequests';
 import MemberDashboard from './Member/Dashboard';
 import MemberTaskList from './Member/TaskList';
+import ProjectDetail from './Admin/ProjectDetail';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/admin/add-project" element={<AddProject />} />
         <Route path="/admin/add-user" element={<AddUser />} />
         <Route path="/admin/project-list" element={<ProjectList />} />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/admin/user-list" element={<UserList />} />
 
         {/* Manager Routes */}

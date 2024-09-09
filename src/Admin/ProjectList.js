@@ -26,6 +26,11 @@ const ProjectList = () => {
             });
     }, []);
 
+    // Handle project deletion
+    const handleDeleteProject = (projectId) => {
+        setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
+    };
+
     return (
         <div className="flex">
             <Sidebar userRole="admin" />
@@ -36,7 +41,7 @@ const ProjectList = () => {
                     {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {projects.map(project => (
-                            <ProjectCard key={project._id} project={project} />
+                            <ProjectCard key={project._id} project={project} onDelete={handleDeleteProject}/>
                         ))}
                     </div>
                 </div>

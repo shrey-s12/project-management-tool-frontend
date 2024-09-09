@@ -1,13 +1,25 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import Calendar from 'react-calendar'; // Import Calendar component
-import 'react-calendar/dist/Calendar.css'; // Import Calendar styles
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const Dashboard = () => {
     const [date, setDate] = useState(new Date());
+    const [projectDeadlines, setProjectDeadlines] = useState([]); // Store deadlines
     const navigate = useNavigate();
+
+    // Fetch project deadlines from the backend
+    useEffect(() => {
+        fetch('http://localhost:3020/projects/getAllProjects')
+            .then((response) => response.json())
+            .then((data) => {
+                const deadlines = data.map((project) => new Date(project.deadline));
+                setProjectDeadlines(deadlines); // Store project deadlines as Date objects
+            })
+            .catch((error) => console.error('Error fetching projects:', error));
+    }, []);
 
     // Handle date selection and redirect to Add Project page
     const handleDateChange = (selectedDate) => {
@@ -17,6 +29,18 @@ const Dashboard = () => {
         });
     };
 
+    // Custom tile content for Calendar - Highlight deadline dates in red
+    const tileClassName = ({ date, view }) => {
+        if (view === 'month') {
+            // If the date is in the list of project deadlines, apply red class
+            const isDeadline = projectDeadlines.some(
+                (deadline) => deadline.toDateString() === date.toDateString()
+            );
+            return isDeadline ? 'bg-red-500 text-white' : "";
+        }
+        return "";
+    };
+    
     return (
         <div className="flex bg-gray-100 min-h-screen">
             <Sidebar userRole="admin" />
@@ -40,10 +64,6 @@ const Dashboard = () => {
                                 <p className="text-5xl font-bold text-green-500">78</p>
                             </div>
 
-                            <div className="p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
-                                <h2 className="text-xl font-semibold text-gray-700 mb-4">Reports Generated</h2>
-                                <p className="text-5xl font-bold text-red-500">15</p>
-                            </div>
                         </div>
 
                         {/* Calendar Column */}
@@ -54,6 +74,7 @@ const Dashboard = () => {
                                 onChange={handleDateChange} // Redirect on date change
                                 value={date}
                                 className="w-full m-auto border border-gray-500 rounded-lg"
+                                tileClassName={tileClassName} // Highlight deadlines
                             />
                             <p className="text-gray-600 mt-4 text-center">
                                 Selected date: <span className="font-bold">{date.toDateString()}</span>
