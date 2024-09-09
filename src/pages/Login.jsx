@@ -35,13 +35,13 @@ const Login = () => {
             console.log("Server role:", serverRole);
             document.cookie = `authtoken=${data.token}`; // Set role in cookie
             switch (serverRole) {
-              case "admin":
+              case "Admin":
                 navigate("/admin/dashboard");
                 break;
-              case "manager":
+              case "Manager":
                 navigate("/manager/dashboard");
                 break;
-              case "member":
+              case "Member":
                 navigate("/member/dashboard");
                 break;
               default:
