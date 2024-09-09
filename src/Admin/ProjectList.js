@@ -28,7 +28,7 @@ const ProjectList = () => {
 
     // Handle project deletion
     const handleDeleteProject = (projectId) => {
-        setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
+        setProjects((prevProjects) => prevProjects.filter((project) => project._id !== projectId));
     };
 
     return (
@@ -39,11 +39,19 @@ const ProjectList = () => {
                 <div className="p-6">
                     <h1 className="text-2xl font-bold mb-6">Project List</h1>
                     {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects.map(project => (
-                            <ProjectCard key={project._id} project={project} onDelete={handleDeleteProject}/>
-                        ))}
+                    {projects.length === 0 ? (
+                        <div className="text-gray-800 text-2xl font-semibold text-center mt-8 mb-4">
+                        No projects available
                     </div>
+                    
+    
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.map(project => (
+                                <ProjectCard key={project._id} project={project} onDelete={handleDeleteProject} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

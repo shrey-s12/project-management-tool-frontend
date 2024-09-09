@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import LandingPage from './landingPage/LandingPage';
+
 import Login from './pages/Login';
 import AdminDashboard from './Admin/Dashboard';
 import AddProject from './Admin/AddProject';
@@ -18,8 +21,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Landing Route */}
+        <Route path="/" element={<LandingPage />} />
+
         {/* Login Route */}
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

@@ -42,25 +42,32 @@ const UserList = () => {
                     <h1 className="text-2xl font-bold mb-6">User List</h1>
                     {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                         {/* Managers column */}
                         <div>
                             <h2 className="text-xl font-bold mb-4">Managers</h2>
-                            <div className="space-y-4">
-                                {managers.map(user => (
-                                    <UserCard key={user._id} user={user} />
-                                ))}
-                            </div>
+                            {managers.length === 0 ? (
+                                <div className="text-gray-800 text-xl text-center">No managers available</div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {managers.map(user => (
+                                        <UserCard key={user._id} user={user} />
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         {/* Members column */}
                         <div>
                             <h2 className="text-xl font-bold mb-4">Members</h2>
-                            <div className="space-y-4">
-                                {members.map(user => (
-                                    <UserCard key={user._id} user={user} />
-                                ))}
-                            </div>
+                            {members.length === 0 ? (
+                                <div className="text-gray-800 text-xl text-center">No members available</div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {members.map(user => (
+                                        <UserCard key={user._id} user={user} />
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                     </div>

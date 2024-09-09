@@ -23,32 +23,41 @@ const AddProject = ({ user }) => {
 
     // Fetch managers on component mount
     useEffect(() => {
-        const fetchManagers = async () => {
-            try {
-                const response = await fetch('http://localhost:3020/members-and-managers');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch managers');
-                }
-                const data = await response.json();
-                if (Array.isArray(data.managers)) {
-                    setManagers(data.managers); // Set managers list
-                } else {
-                    throw new Error('Unexpected response format');
-                }
+        const fetchManagers = () => {
+            fetch('http://localhost:3020/members-and-managers')
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch managers');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (Array.isArray(data.managers)) {
+                        setManagers(data.managers); // Set managers list
+                    } else {
+                        throw new Error('Unexpected response format');
+                    }
 
-                const assignedResponse = await fetch('http://localhost:3020/projects/assigned-managers');
-                if (!assignedResponse.ok) {
-                    throw new Error('Failed to fetch assigned managers');
-                }
-                const assignedData = await assignedResponse.json();
-                setAssignedManagers(assignedData); // Set list of assigned managers
-            } catch (error) {
-                setErrorMessage(error.message);
-            }
+                    // Fetch assigned managers after fetching managers
+                    return fetch('http://localhost:3020/projects/assigned-managers');
+                })
+                .then((assignedResponse) => {
+                    if (!assignedResponse.ok) {
+                        throw new Error('Failed to fetch assigned managers');
+                    }
+                    return assignedResponse.json();
+                })
+                .then((assignedData) => {
+                    setAssignedManagers(assignedData); // Set list of assigned managers
+                })
+                .catch((error) => {
+                    setErrorMessage(error.message); // Handle errors
+                });
         };
 
         fetchManagers();
     }, []);
+
 
     // Filter out already assigned managers from the list
     const availableManagers = managers.filter(

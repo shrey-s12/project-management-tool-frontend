@@ -10,24 +10,24 @@ const ProjectCard = ({ project, onDelete }) => {
     // Format deadline as YYYY-MM-DD
     const formattedDeadline = deadlineDate.toISOString().split('T')[0];
 
-    // Handle Delete Button Click using .then() and .catch()
+    // Handle Delete Button Click
     const handleDelete = () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this project?");
-        if (!confirmDelete) return;
-
         fetch(`http://localhost:3020/projects/deleteProject/${project._id}`, {
             method: 'DELETE',
         })
-            .then((response) => {
+            .then(response => {
                 if (response.ok) {
-                    // Call onDelete callback to refresh the project list
+                    // Call onDelete callback to refresh the project list in parent component
                     onDelete(project._id);
                 } else {
-                    throw new Error('Failed to delete project');
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.error || 'Failed to delete project');
+                    });
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('Error deleting project:', error);
+                // Optionally, display an error message or handle the error
             });
     };
 
@@ -47,11 +47,11 @@ const ProjectCard = ({ project, onDelete }) => {
     return (
         <div className="bg-white p-4 border rounded-lg shadow">
             <h3 className="text-xl font-bold">
-                {truncateText(project.name, 25)} {/* Limit title to 20 characters */}
+                {truncateText(project.name, 25)} {/* Limit title to 25 characters */}
             </h3>
-            <p>{truncateText(project.description, 45)} {/* Limit description to 100 characters */}</p>
+            <p>{truncateText(project.description, 45)} {/* Limit description to 45 characters */}</p>
             <p className="text-gray-600">Deadline: {formattedDeadline}</p>
-            <p className="text-gray-600">Manager: {project.manager}</p>
+            <p className="text-gray-600">Manager: {project.manager}</p> {/* Display manager name if available */}
 
             <div className="mt-4 flex space-x-4">
                 {/* Detail Button */}
@@ -69,7 +69,6 @@ const ProjectCard = ({ project, onDelete }) => {
                 >
                     Delete Project
                 </button>
-
             </div>
         </div>
     );
