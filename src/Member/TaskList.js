@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import TaskCard from '../components/TaskCard';
+import MemberTaskCard from '../components/MemberTaskCard';
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
@@ -29,29 +29,6 @@ const TaskList = () => {
             });
     }, []); // Empty array ensures the effect runs only once after the initial render
 
-    const handleDelete = (taskId) => {
-        fetch(`https://project-management-tool-backend-ifbp.onrender.com/tasks/deleteTask/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}` // If JWT is required
-            }
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Failed to delete task');
-                }
-                return response.json();
-            })
-            .then(() => {
-                // Remove the deleted task from the state
-                setTasks(tasks.filter(task => task._id !== taskId));
-            })
-            .catch((error) => {
-                console.error('Error deleting task:', error);
-                setErrorMessage(error.message);
-            });
-    };
-
     return (
         <div className="flex">
             <Sidebar userRole="member" />
@@ -65,10 +42,9 @@ const TaskList = () => {
                             <p>No tasks available.</p>
                         ) : (
                             tasks.map(task => (
-                                <TaskCard
+                                <MemberTaskCard
                                     key={task._id}
                                     task={task}
-                                    onDelete={() => handleDelete(task._id)}
                                 />
                             ))
                         )}
