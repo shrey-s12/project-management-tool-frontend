@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Lottie from 'lottie-react';
+import { ToastContainer, toast } from 'react-toastify';  // Import toast functions
+import 'react-toastify/dist/ReactToastify.css';  // Import toastify styles
 import { loginAnimation } from './animation';
 
 import user_icon from "../Assets/person.png";
@@ -36,34 +38,65 @@ const Login = () => {
             const serverRole = data.user.role; // Use role from server response
             console.log("Server role:", serverRole);
             document.cookie = `authtoken=${data.token}`; // Set role in cookie
-            switch (serverRole) {
-              case "Admin":
-                navigate("/admin/dashboard");
-                break;
-              case "Manager":
-                navigate("/manager/dashboard");
-                break;
-              case "Member":
-                navigate("/member/dashboard");
-                break;
-              default:
-                alert("Invalid role selected");
-            }
-          })
+
+            // Show success notification
+            toast.success("Login successful!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+
+            // Navigate based on role
+            setTimeout(() => {  // Delay navigation to let the user see the success message
+              switch (serverRole) {
+                case "Admin":
+                  navigate("/admin/dashboard");
+                  break;
+                case "Manager":
+                  navigate("/manager/dashboard");
+                  break;
+                case "Member":
+                  navigate("/member/dashboard");
+                  break;
+                default:
+                  alert("Invalid role selected");
+              }
+            }, 2000);
+          });
+        } else {
+          throw new Error('Login failed. Please check your credentials.');
         }
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error("Error during login:", err);
         setErrorMessage(err.message);
         setPassword(""); // Clear the password field for security reasons
+
+        // Show error notification
+        toast.error(err.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
   return (
-    // Login form
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+      {/* Toast Container to display notifications */}
+      <ToastContainer />
+
       <div className="flex items-center space-x-80">
         {/* Animation */}
-        <div className="mb-8 mr-8"> {/* Added mr-8 for spacing */}
+        <div className="mb-8 mr-8">
           <Lottie
             animationData={loginAnimation}
             loop
@@ -142,8 +175,6 @@ const Login = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 

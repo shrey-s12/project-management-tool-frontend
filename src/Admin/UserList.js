@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import UserCard from '../components/UserCard';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 const UserList = () => {
     const url = 'http://localhost:3020/members-and-managers';
@@ -49,13 +51,30 @@ const UserList = () => {
                     throw new Error('Failed to delete user');
                 }
             })
-            .then((data) => {
+            .then(() => {
                 // Remove the deleted user from state
                 setMembers(members.filter(member => member._id !== userId));
                 setManagers(managers.filter(manager => manager._id !== userId));
+                toast.success('User deleted successfully!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             })
             .catch((error) => {
-                setErrorMessage(error.message);
+                toast.error(`Error deleting user: ${error.message}`, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
     };
 
@@ -98,6 +117,7 @@ const UserList = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer /> {/* Add ToastContainer here */}
         </div>
     );
 };

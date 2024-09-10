@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';  // Import toast functions
+import 'react-toastify/dist/ReactToastify.css';  // Import toastify styles
 
 const ProjectCard = ({ project, onDelete }) => {
     const navigate = useNavigate();
@@ -19,6 +21,15 @@ const ProjectCard = ({ project, onDelete }) => {
                 if (response.ok) {
                     // Call onDelete callback to refresh the project list in parent component
                     onDelete(project._id);
+                    toast.success('Project deleted successfully!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                 } else {
                     return response.json().then(errorData => {
                         throw new Error(errorData.error || 'Failed to delete project');
@@ -27,7 +38,15 @@ const ProjectCard = ({ project, onDelete }) => {
             })
             .catch(error => {
                 console.error('Error deleting project:', error);
-                // Optionally, display an error message or handle the error
+                toast.error(`Error deleting project: ${error.message}`, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
     };
 
@@ -46,6 +65,7 @@ const ProjectCard = ({ project, onDelete }) => {
 
     return (
         <div className="bg-white p-4 border rounded-lg shadow">
+
             <h3 className="text-xl font-bold"> {truncateText(project.name, 25)} </h3>
             <p>{truncateText(project.description, 45)}</p>
             <p className="text-gray-600">Deadline: {formattedDeadline}</p>
