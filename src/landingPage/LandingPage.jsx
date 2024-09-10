@@ -115,7 +115,7 @@ const LandingPage = () => {
             {/* Footer */}
             <footer id="footer" className="footer zoom-effect">
                 <div className="footer-container">
-                    <p>&copy; 2024 Manage Master. All rights reserved.</p>
+                    <p>&copy; 2024 Syncora. All rights reserved.</p>
                     <ul className="footer-links">
                         <li><a href="#hero">Home</a></li>
                         <li><a href="#features">Features</a></li>

@@ -3,7 +3,7 @@ import React from 'react';// Assuming you have some CSS for the navbar
 const NavBar = () => {
   return (
     <nav className="navbar">
-      <div className="brand-name">Manage Master</div>
+      <div className="brand-name">Syncora</div>
       <ul>
         <li><a href="#hero">Home</a></li>
         <li><a href="#features">Features</a></li>
