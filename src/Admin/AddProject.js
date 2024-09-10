@@ -134,6 +134,7 @@ const AddProject = ({ user }) => {
                             className="w-full p-3 border rounded-lg"
                             placeholder="Project Title"
                             required
+                            autoFocus
                         />
                         <textarea
                             value={description}

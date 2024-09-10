@@ -66,6 +66,7 @@ const AddUser = () => {
                             className="w-full p-3 border rounded-lg"
                             placeholder="Name"
                             required
+                            autoFocus
                         />
                         <input
                             type="email"

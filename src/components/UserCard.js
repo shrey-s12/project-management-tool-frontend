@@ -1,11 +1,19 @@
 import React from 'react';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, onDelete }) => {
     return (
-        <div className="bg-white p-4 border rounded-lg shadow">
-            <h3 className="text-xl font-bold">{user.name}</h3>
-            <p className="text-gray-600">Email: {user.email}</p>
-            <p className="text-gray-600">Role: {user.role}</p>
+        <div className="p-4 bg-white shadow-md rounded-lg flex items-center justify-between">
+            <div>
+                <h3 className="text-xl font-semibold">{user.name}</h3>
+                <p className="text-gray-700">{user.email}</p>
+                <p className="text-gray-500">{user.role}</p>
+            </div>
+            <button
+                onClick={onDelete}
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+            >
+                Delete
+            </button>
         </div>
     );
 };

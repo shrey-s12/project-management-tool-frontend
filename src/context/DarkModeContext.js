@@ -1,3 +1,4 @@
+// src/context/DarkModeContext.js
 import React, { createContext, useState, useEffect } from 'react';
 
 export const DarkModeContext = createContext();
@@ -5,7 +6,6 @@ export const DarkModeContext = createContext();
 export const DarkModeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
 
-  // Load dark mode preference from local storage on first render
   useEffect(() => {
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedDarkMode);
@@ -14,9 +14,8 @@ export const DarkModeProvider = ({ children }) => {
     }
   }, []);
 
-  // Save dark mode preference in local storage
   const toggleDarkMode = () => {
-    setDarkMode((prevMode) => {
+    setDarkMode(prevMode => {
       const newMode = !prevMode;
       localStorage.setItem('darkMode', newMode);
       if (newMode) {

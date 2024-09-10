@@ -64,9 +64,19 @@ const Dashboard = () => {
             const isDeadline = projectDeadlines.some(
                 deadline => deadline.toDateString() === date.toDateString()
             );
-            return isDeadline ? 'bg-red-500 text-white' : '';
+            return isDeadline ? 'bg-gray-500 text-white' : '';
         }
         return '';
+    };
+
+    // Navigate to Project List page
+    const navigateProjectList = () => {
+        navigate('/admin/project-list');
+    };
+
+    // Navigate to User List page
+    const navigateUserList = () => {
+        navigate('/admin/user-list');
     };
 
     return (
@@ -82,17 +92,17 @@ const Dashboard = () => {
 
                         {/* Cards Column */}
                         <div className="space-y-6">
-                            <div className="p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                            <div onClick={navigateProjectList} className="cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
                                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Total Projects</h2>
                                 <p className="text-5xl font-bold text-green-500">{totalProjects}</p>
                             </div>
 
-                            <div className="p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                            <div onClick={navigateUserList} className="cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
                                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Total Manager</h2>
                                 <p className="text-5xl font-bold text-blue-500">{totalManagers}</p>
                             </div>
 
-                            <div className="p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                            <div onClick={navigateUserList} className=" cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
                                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Total Member</h2>
                                 <p className="text-5xl font-bold text-blue-500">{totalMembers}</p>
                             </div>
@@ -108,7 +118,7 @@ const Dashboard = () => {
                                 tileClassName={tileClassName}
                             />
                             <p className="text-gray-600 mt-4 text-center">
-                                Selected date: <span className="font-bold">{date.toDateString()}</span>
+                                Date: <span className="font-bold">{date.toDateString()}</span>
                             </p>
                         </div>
                     </div>

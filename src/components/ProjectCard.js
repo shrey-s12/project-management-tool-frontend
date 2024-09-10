@@ -46,10 +46,8 @@ const ProjectCard = ({ project, onDelete }) => {
 
     return (
         <div className="bg-white p-4 border rounded-lg shadow">
-            <h3 className="text-xl font-bold">
-                {truncateText(project.name, 25)} {/* Limit title to 25 characters */}
-            </h3>
-            <p>{truncateText(project.description, 45)} {/* Limit description to 45 characters */}</p>
+            <h3 className="text-xl font-bold"> {truncateText(project.name, 25)} </h3>
+            <p>{truncateText(project.description, 45)}</p>
             <p className="text-gray-600">Deadline: {formattedDeadline}</p>
             <p className="text-gray-600">Manager: {project.manager}</p> {/* Display manager name if available */}
 

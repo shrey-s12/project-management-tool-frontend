@@ -19,33 +19,33 @@ import ProjectDetail from './Admin/ProjectDetail';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {/* Landing Route */}
-        <Route path="/" element={<LandingPage />} />
+      <Router>
+        <Routes>
+          {/* Landing Route */}
+          <Route path="/" element={<LandingPage />} />
 
-        {/* Login Route */}
-        <Route path="/login" element={<Login />} />
+          {/* Login Route */}
+          <Route path="/login" element={<Login />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/add-project" element={<AddProject />} />
-        <Route path="/admin/add-user" element={<AddUser />} />
-        <Route path="/admin/project-list" element={<ProjectList />} />
-        <Route path="/projects/:id" element={<ProjectDetail />} />
-        <Route path="/admin/user-list" element={<UserList />} />
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/add-project" element={<AddProject />} />
+          <Route path="/admin/add-user" element={<AddUser />} />
+          <Route path="/admin/project-list" element={<ProjectList />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/admin/user-list" element={<UserList />} />
 
-        {/* Manager Routes */}
-        <Route path="/manager/dashboard" element={<ManagerDashboard />} />
-        <Route path="/manager/add-task" element={<AddTask />} />
-        <Route path="/manager/task-list" element={<TaskList />} />
-        <Route path="/manager/task-requests" element={<TaskRequests />} />
+          {/* Manager Routes */}
+          <Route path="/manager/dashboard" element={<ManagerDashboard />} />
+          <Route path="/manager/add-task" element={<AddTask />} />
+          <Route path="/manager/task-list" element={<TaskList />} />
+          <Route path="/manager/task-requests" element={<TaskRequests />} />
 
-        {/* Member Routes */}
-        <Route path="/member/dashboard" element={<MemberDashboard />} />
-        <Route path="/member/task-list" element={<MemberTaskList />} />
-      </Routes>
-    </Router>
+          {/* Member Routes */}
+          <Route path="/member/dashboard" element={<MemberDashboard />} />
+          <Route path="/member/task-list" element={<MemberTaskList />} />
+        </Routes>
+      </Router>
   );
 };
 

@@ -5,6 +5,7 @@ import UserCard from '../components/UserCard';
 
 const UserList = () => {
     const url = 'http://localhost:3020/members-and-managers';
+    const deleteUserUrl = 'http://localhost:3020/delete-member'; // Base URL for delete requests
     const [members, setMembers] = useState([]);
     const [managers, setManagers] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -20,7 +21,6 @@ const UserList = () => {
                 }
             })
             .then((data) => {
-                // Check if data.members and data.managers are arrays
                 if (Array.isArray(data.members) && Array.isArray(data.managers)) {
                     setMembers(data.members);
                     setManagers(data.managers);
@@ -32,6 +32,32 @@ const UserList = () => {
                 setErrorMessage(error.message);
             });
     }, []);
+
+    // Handle delete user
+    const handleDelete = (userId) => {
+        fetch(`${deleteUserUrl}/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to delete user');
+                }
+            })
+            .then((data) => {
+                // Remove the deleted user from state
+                setMembers(members.filter(member => member._id !== userId));
+                setManagers(managers.filter(manager => manager._id !== userId));
+            })
+            .catch((error) => {
+                setErrorMessage(error.message);
+            });
+    };
 
     return (
         <div className="flex">
@@ -50,7 +76,7 @@ const UserList = () => {
                             ) : (
                                 <div className="space-y-4">
                                     {managers.map(user => (
-                                        <UserCard key={user._id} user={user} />
+                                        <UserCard key={user._id} user={user} onDelete={() => handleDelete(user._id)} />
                                     ))}
                                 </div>
                             )}
@@ -64,12 +90,11 @@ const UserList = () => {
                             ) : (
                                 <div className="space-y-4">
                                     {members.map(user => (
-                                        <UserCard key={user._id} user={user} />
+                                        <UserCard key={user._id} user={user} onDelete={() => handleDelete(user._id)} />
                                     ))}
                                 </div>
                             )}
                         </div>
-
                     </div>
                 </div>
             </div>

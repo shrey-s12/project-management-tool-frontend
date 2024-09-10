@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 const Sidebar = ({ userRole }) => {
     const location = useLocation(); // Get the current route
     const [activeLink, setActiveLink] = useState(location.pathname); // Set the active link to the current route
-
     const handleLinkClick = (path) => {
         setActiveLink(path); // Update the active link when clicked
     };
@@ -16,7 +15,7 @@ const Sidebar = ({ userRole }) => {
     return (
         <div className="sticky top-0 left-0 w-64 h-screen bg-gray-900 text-white p-6 shadow-lg">
             <div className="flex flex-col items-center mb-8">
-                <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
+                <h1 className="text-3xl font-bold mb-2 text-white">Dashboard</h1>
                 <span className="text-sm font-light text-gray-400">Welcome, {userRole}</span>
             </div>
             <ul className="space-y-4">
