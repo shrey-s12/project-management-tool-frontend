@@ -69,16 +69,15 @@ const ProjectCard = ({ project, onDelete }) => {
             <h3 className="text-xl font-bold"> {truncateText(project.name, 25)} </h3>
             <p>{truncateText(project.description, 45)}</p>
             <p className="text-gray-600">Deadline: {formattedDeadline}</p>
-            <p className="text-gray-600">Manager: {project.manager}</p> {/* Display manager name if available */}
-
+            
             <div className="mt-4 flex space-x-4">
                 {/* Detail Button */}
-                <button
+                {/* <button
                     onClick={handleViewDetails}
                     className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
                 >
                     View Details
-                </button>
+                </button> */}
 
                 {/* Delete Button */}
                 <button

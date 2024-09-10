@@ -94,6 +94,7 @@ const AddTask = () => {
                             className="w-full p-3 border rounded-lg"
                             placeholder="Task Title"
                             required
+                            autoFocus
                         />
                         <textarea
                             value={description}
