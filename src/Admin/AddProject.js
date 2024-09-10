@@ -24,7 +24,7 @@ const AddProject = ({ user }) => {
     // Fetch managers on component mount
     useEffect(() => {
         const fetchManagers = () => {
-            fetch('http://localhost:3020/members-and-managers')
+            fetch('https://project-management-tool-backend-ifbp.onrender.com/members-and-managers')
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error('Failed to fetch managers');
@@ -39,7 +39,7 @@ const AddProject = ({ user }) => {
                     }
 
                     // Fetch assigned managers after fetching managers
-                    return fetch('http://localhost:3020/projects/assigned-managers');
+                    return fetch('https://project-management-tool-backend-ifbp.onrender.com/projects/assigned-managers');
                 })
                 .then((assignedResponse) => {
                     if (!assignedResponse.ok) {
@@ -86,7 +86,7 @@ const AddProject = ({ user }) => {
             manager
         };
 
-        const url = 'http://localhost:3020/projects/addProject';
+        const url = 'https://project-management-tool-backend-ifbp.onrender.com/projects/addProject';
         fetch(url, {
             method: 'POST',
             headers: {

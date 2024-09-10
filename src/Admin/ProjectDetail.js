@@ -8,7 +8,7 @@ const ProjectDetail = () => {
 
     useEffect(() => {
         // Fetch the project details by ID when the component mounts
-        fetch(`http://localhost:3020/projects/${id}`)
+        fetch(`https://project-management-tool-backend-ifbp.onrender.com/projects/${id}`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();

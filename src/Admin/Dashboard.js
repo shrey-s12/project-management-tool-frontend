@@ -16,7 +16,7 @@ const Dashboard = () => {
     // Fetch total users and projects count
     useEffect(() => {
         // Fetch total projects count
-        fetch('http://localhost:3020/projects/count')
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/projects/count')
             .then(response => response.json())
             .then(data => {
                 setTotalProjects(data.totalProjects); // Assuming the response contains a totalProjects field
@@ -25,7 +25,7 @@ const Dashboard = () => {
 
 
         // Fetch total managers
-        fetch('http://localhost:3020/auth/manager-count', {
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/auth/manager-count', {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then(response => response.json())
@@ -33,7 +33,7 @@ const Dashboard = () => {
             .catch(error => console.error('Error fetching total managers:', error));
 
         // Fetch total members
-        fetch('http://localhost:3020/auth/member-count', {
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/auth/member-count', {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then(response => response.json())
@@ -41,7 +41,7 @@ const Dashboard = () => {
             .catch(error => console.error('Error fetching total members:', error));
 
         // Fetch project deadlines
-        fetch('http://localhost:3020/projects/getAllProjects')
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/projects/getAllProjects')
             .then(response => response.json())
             .then(data => {
                 const deadlines = data.map(project => new Date(project.deadline));

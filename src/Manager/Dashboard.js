@@ -15,7 +15,7 @@ const Dashboard = () => {
     useEffect(() => {
 
         // Fetch total members
-        fetch('http://localhost:3020/auth/member-count', {
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/auth/member-count', {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then(response => response.json())
@@ -23,7 +23,7 @@ const Dashboard = () => {
             .catch(error => console.error('Error fetching total members:', error));
 
         // Fetch project deadlines
-        fetch('http://localhost:3020/projects/getAllProjects')
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/projects/getAllProjects')
             .then(response => response.json())
             .then(data => {
                 const deadlines = data.map(project => new Date(project.deadline));

@@ -14,7 +14,7 @@ const ProjectCard = ({ project, onDelete }) => {
 
     // Handle Delete Button Click
     const handleDelete = () => {
-        fetch(`http://localhost:3020/projects/deleteProject/${project._id}`, {
+        fetch(`https://project-management-tool-backend-ifbp.onrender.com/projects/deleteProject/${project._id}`, {
             method: 'DELETE',
         })
             .then(response => {

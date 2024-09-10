@@ -4,7 +4,7 @@
     import { useNavigate } from 'react-router-dom';
 
     const AddUser = () => {
-        const url = 'http://localhost:3020/signup'; // Backend signup endpoint
+        const url = 'https://project-management-tool-backend-ifbp.onrender.com/signup'; // Backend signup endpoint
         const [name, setName] = useState("");
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");

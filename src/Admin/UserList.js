@@ -6,8 +6,8 @@ import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 const UserList = () => {
-    const url = 'http://localhost:3020/members-and-managers';
-    const deleteUserUrl = 'http://localhost:3020/delete-member'; // Base URL for delete requests
+    const url = 'https://project-management-tool-backend-ifbp.onrender.com/members-and-managers';
+    const deleteUserUrl = 'https://project-management-tool-backend-ifbp.onrender.com/delete-member'; // Base URL for delete requests
     const [members, setMembers] = useState([]);
     const [managers, setManagers] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');

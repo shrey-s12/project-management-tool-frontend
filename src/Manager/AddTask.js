@@ -15,7 +15,7 @@ const AddTask = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:3020/members-and-managers', {
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/members-and-managers', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` // if JWT token is needed
             }
@@ -50,7 +50,7 @@ const AddTask = () => {
         };
 
         // Send POST request to the backend to add the task
-        fetch('http://localhost:3020/tasks/addTask', {
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/tasks/addTask', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -103,13 +103,6 @@ const AddTask = () => {
                             rows="4"
                             required
                         />
-                        {/* <input
-                            type="date"
-                            value={deadline}
-                            onChange={(e) => setDeadline(e.target.value)}
-                            className="border p-2 rounded"
-                            required
-                        /> */}
                         <input
                             type="date"
                             value={deadline}

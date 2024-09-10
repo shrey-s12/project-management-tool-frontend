@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 import { ToastContainer } from 'react-toastify';
 
 const ProjectList = () => {
-    const url = 'http://localhost:3020/projects/getAllProjects';
+    const url = 'https://project-management-tool-backend-ifbp.onrender.com/projects/getAllProjects';
     const [projects, setProjects] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 

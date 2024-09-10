@@ -10,7 +10,7 @@ import email_icon from "../Assets/email.png";
 import password_icon from "../Assets/password.png";
 
 const Login = () => {
-  const url = 'http://localhost:3020/login';
+  const url = 'https://project-management-tool-backend-ifbp.onrender.com/login';
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState(""); // State for role selection

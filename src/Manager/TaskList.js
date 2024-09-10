@@ -9,7 +9,7 @@ const TaskList = () => {
 
     // Fetch tasks when the component mounts
     useEffect(() => {
-        fetch('http://localhost:3020/tasks/getAllTasks', {
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/tasks/getAllTasks', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` // If JWT is required
             }
@@ -30,7 +30,7 @@ const TaskList = () => {
     }, []); // Empty array ensures the effect runs only once after the initial render
 
     const handleDelete = (taskId) => {
-        fetch(`http://localhost:3020/tasks/deleteTask/${taskId}`, {
+        fetch(`https://project-management-tool-backend-ifbp.onrender.com/tasks/deleteTask/${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` // If JWT is required
