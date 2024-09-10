@@ -56,10 +56,10 @@ const Login = () => {
                 case "Admin":
                   navigate("/admin/dashboard");
                   break;
-                case "Manager":
+                case "manager":
                   navigate("/manager/dashboard");
                   break;
-                case "Member":
+                case "member":
                   navigate("/member/dashboard");
                   break;
                 default:

@@ -58,7 +58,6 @@ const AddProject = ({ user }) => {
         fetchManagers();
     }, []);
 
-
     // Filter out already assigned managers from the list
     const availableManagers = managers.filter(
         (mgr) => !assignedManagers.includes(mgr._id)

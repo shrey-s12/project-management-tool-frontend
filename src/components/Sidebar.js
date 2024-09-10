@@ -97,7 +97,7 @@ const Sidebar = ({ userRole }) => {
                                 Task List
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link
                                 to="/manager/task-requests"
                                 className={linkClassNames("/manager/task-requests")}
@@ -105,7 +105,7 @@ const Sidebar = ({ userRole }) => {
                             >
                                 Task Requests
                             </Link>
-                        </li>
+                        </li> */}
                     </>
                 )}
                 {userRole === 'member' && (
