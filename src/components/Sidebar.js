@@ -7,7 +7,6 @@ const Sidebar = ({ userRole }) => {
     const handleLinkClick = (path) => {
         setActiveLink(path); // Update the active link when clicked
     };
-
     const linkClassNames = (path) =>
         `block px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 
          ${activeLink === path ? 'bg-gray-700' : ''}`; // Apply the active class if the path matches
@@ -25,7 +24,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/admin/dashboard"
                                 className={linkClassNames("/admin/dashboard")}
-                                onClick={() => handleLinkClick("/admin/dashboard")}
+                                // onClick={() => handleLinkClick("/admin/dashboard")}
                             >
                                 Admin Dashboard
                             </Link>
@@ -34,7 +33,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/admin/add-project"
                                 className={linkClassNames("/admin/add-project")}
-                                onClick={() => handleLinkClick("/admin/add-project")}
+                                // onClick={() => handleLinkClick("/admin/add-project")}
                             >
                                 Add Project
                             </Link>
@@ -43,7 +42,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/admin/add-user"
                                 className={linkClassNames("/admin/add-user")}
-                                onClick={() => handleLinkClick("/admin/add-user")}
+                                // onClick={() => handleLinkClick("/admin/add-user")}
                             >
                                 Add User
                             </Link>
@@ -52,7 +51,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/admin/project-list"
                                 className={linkClassNames("/admin/project-list")}
-                                onClick={() => handleLinkClick("/admin/project-list")}
+                                // onClick={() => handleLinkClick("/admin/project-list")}
                             >
                                 Project List
                             </Link>
@@ -61,7 +60,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/admin/user-list"
                                 className={linkClassNames("/admin/user-list")}
-                                onClick={() => handleLinkClick("/admin/user-list")}
+                                // onClick={() => handleLinkClick("/admin/user-list")}
                             >
                                 User List
                             </Link>
@@ -74,7 +73,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/manager/dashboard"
                                 className={linkClassNames("/manager/dashboard")}
-                                onClick={() => handleLinkClick("/manager/dashboard")}
+                                // onClick={() => handleLinkClick("/manager/dashboard")}
                             >
                                 Manager Dashboard
                             </Link>
@@ -83,7 +82,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/manager/add-task"
                                 className={linkClassNames("/manager/add-task")}
-                                onClick={() => handleLinkClick("/manager/add-task")}
+                                // onClick={() => handleLinkClick("/manager/add-task")}
                             >
                                 Add Task
                             </Link>
@@ -92,20 +91,11 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/manager/task-list"
                                 className={linkClassNames("/manager/task-list")}
-                                onClick={() => handleLinkClick("/manager/task-list")}
+                                // onClick={() => handleLinkClick("/manager/task-list")}
                             >
                                 Task List
                             </Link>
                         </li>
-                        {/* <li>
-                            <Link
-                                to="/manager/task-requests"
-                                className={linkClassNames("/manager/task-requests")}
-                                onClick={() => handleLinkClick("/manager/task-requests")}
-                            >
-                                Task Requests
-                            </Link>
-                        </li> */}
                     </>
                 )}
                 {userRole === 'member' && (
@@ -114,7 +104,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/member/dashboard"
                                 className={linkClassNames("/member/dashboard")}
-                                onClick={() => handleLinkClick("/member/dashboard")}
+                                // onClick={() => handleLinkClick("/member/dashboard")}
                             >
                                 Member Dashboard
                             </Link>
@@ -123,7 +113,7 @@ const Sidebar = ({ userRole }) => {
                             <Link
                                 to="/member/task-list"
                                 className={linkClassNames("/member/task-list")}
-                                onClick={() => handleLinkClick("/member/task-list")}
+                                // onClick={() => handleLinkClick("/member/task-list")}
                             >
                                 Task List
                             </Link>

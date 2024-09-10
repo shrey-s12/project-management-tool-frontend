@@ -9,9 +9,10 @@ const Dashboard = () => {
     const [date, setDate] = useState(new Date());
     const [projectDeadlines, setProjectDeadlines] = useState([]); // Store deadlines
     const [totalMembers, setTotalMembers] = useState(0);
+    const [totalTasks, setTotalTasks] = useState(0); // Store total tasks
     const navigate = useNavigate();
 
-    // Fetch total users and projects count
+    // Fetch total users, projects, and tasks count
     useEffect(() => {
 
         // Fetch total members
@@ -30,12 +31,22 @@ const Dashboard = () => {
                 setProjectDeadlines(deadlines);
             })
             .catch(error => console.error('Error fetching projects:', error));
+
+        // Fetch total tasks
+        fetch('https://project-management-tool-backend-ifbp.onrender.com/tasks/task-count', {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setTotalTasks(data.count)
+            }) // Assuming `data.count` contains the total number of tasks
+            .catch(error => console.error('Error fetching total tasks:', error));
     }, []);
 
     // Handle date selection and redirect to Add Project page
     const handleDateChange = (selectedDate) => {
         setDate(selectedDate);
-        navigate(`/admin/add-project`, {
+        navigate(`/manager/add-task`, {
             state: { deadline: selectedDate }, // Pass the selected date as state
         });
     };
@@ -51,14 +62,8 @@ const Dashboard = () => {
         return '';
     };
 
-    // Navigate to Project List page
-    const navigateProjectList = () => {
-        navigate('/admin/project-list');
-    };
-
-    // Navigate to User List page
-    const navigateUserList = () => {
-        navigate('/admin/user-list');
+    const navigateTasks = () => {
+        navigate('/manager/task-list');
     };
 
     return (
@@ -74,14 +79,19 @@ const Dashboard = () => {
 
                         {/* Cards Column */}
                         <div className="space-y-6">
-                            <div onClick={navigateProjectList} className="cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                            <div className="p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
                                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Project Name</h2>
                                 <p className="text-4xl font-bold text-green-500">Project 1</p>
                             </div>
 
-                            <div onClick={navigateUserList} className=" cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                            <div className="p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
                                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Total Member</h2>
                                 <p className="text-5xl font-bold text-blue-500">{totalMembers}</p>
+                            </div>
+
+                            <div onClick={navigateTasks} className=" cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                                <h2 className="text-xl font-semibold text-gray-700 mb-4">Total Task</h2>
+                                <p className="text-5xl font-bold text-blue-500">{totalTasks}</p>
                             </div>
                         </div>
 

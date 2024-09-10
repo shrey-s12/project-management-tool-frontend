@@ -54,9 +54,9 @@ const TaskList = () => {
 
     return (
         <div className="flex">
-            <Sidebar userRole="manager" />
+            <Sidebar userRole="member" />
             <div className="flex-1">
-                <Navbar userRole="manager" />
+                <Navbar userRole="member" />
                 <div className="p-6">
                     <h1 className="text-2xl font-bold mb-6">Task List</h1>
                     {errorMessage && <div className="text-red-500">{errorMessage}</div>}

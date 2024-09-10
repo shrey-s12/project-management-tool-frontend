@@ -11,7 +11,7 @@ import ProjectList from './Admin/ProjectList';
 import UserList from './Admin/UserList';
 import ManagerDashboard from './Manager/Dashboard';
 import AddTask from './Manager/AddTask';
-import TaskList from './Manager/TaskList';
+import ManagerTaskList from './Manager/TaskList';
 import MemberDashboard from './Member/Dashboard';
 import MemberTaskList from './Member/TaskList';
 import ProjectDetail from './Admin/ProjectDetail';
@@ -37,7 +37,7 @@ const App = () => {
           {/* Manager Routes */}
           <Route path="/manager/dashboard" element={<ManagerDashboard />} />
           <Route path="/manager/add-task" element={<AddTask />} />
-          <Route path="/manager/task-list" element={<TaskList />} />
+          <Route path="/manager/task-list" element={<ManagerTaskList />} />
 
           {/* Member Routes */}
           <Route path="/member/dashboard" element={<MemberDashboard />} />

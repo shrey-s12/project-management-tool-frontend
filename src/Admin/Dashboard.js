@@ -102,7 +102,7 @@ const Dashboard = () => {
                                 <p className="text-5xl font-bold text-blue-500">{totalManagers}</p>
                             </div>
 
-                            <div className=" cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                            <div onClick={navigateUserList} className=" cursor-pointer p-6 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
                                 <h2 className="text-xl font-semibold text-gray-700 mb-4">Total Member</h2>
                                 <p className="text-5xl font-bold text-blue-500">{totalMembers}</p>
                             </div>

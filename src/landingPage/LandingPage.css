@@ -37,7 +37,6 @@ button {
 /* Navbar */
 .navbar {
     background: linear-gradient(135deg, #6a0dad, #a76aff);
-    /* Purple gradient */
     padding: 15px;
     display: flex;
     justify-content: space-between;
